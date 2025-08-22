@@ -4,14 +4,12 @@
   
   2. In a notebook on your cluster:
      
-       %pip install pyyaml
-     
+      %pip install pyyaml
       import sys
-     
       sys.path.append('/Workspace/Repos/<you>/dqbricks_v3')
-     
-  4. Edit config.yaml for your environment (paths, scope, rules).
-  5. Run:
+
+  3. Edit config.yaml for your environment (paths, scope, rules).
+  4. Run:
      
      %run /Workspace/Repos/<you>/dqbricks_v3/run_notebook.py
      
