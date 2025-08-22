@@ -1,6 +1,6 @@
-# DQBricks v3 — Databricks Delta Data Quality Framework
+# DQBricks — Databricks Delta Data Quality Framework
 
-DQBricks v3 is a **turn‑key, pluggable data quality framework** for Databricks and Delta Lake.
+DQBricks is a **turn‑key, pluggable data quality framework** for Databricks and Delta Lake.
 It requires only a single **config.yaml** file to define inputs and rules. Optionally, you can add custom rules in **custom_rules.py**.
 The framework handles everything else:
 - Discovers target tables (table / schema / catalog)
@@ -22,7 +22,7 @@ The framework handles everything else:
 
 ## 📁 Project Structure
 ```
- dqbricks_v3/
+ dqbricks/
   ├─ config.yaml              # Main config (edit this)
   ├─ custom_rules.py          # Optional custom rules
   ├─ run_notebook.py          # Runner (Databricks notebook/job)
