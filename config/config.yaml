@@ -1,0 +1,71 @@
+# Destination objects (created automatically if missing)
+quarantine_table: explore.dq.quarantine # catalog.schema.table or schema.table
+metrics_table: explore.dq.metrics
+
+
+# Dashboard views (created automatically)
+views:
+  rule_results: explore.dq.v_dq_rule_results
+  table_health: explore.dq.v_dq_table_health
+  column_nulls: explore.dq.v_dq_column_nulls
+
+
+# Execution mode: batch | streaming
+mode: batch
+
+
+# Incremental options (batch mode)
+incremental:
+  use_cdf: false # if true, read only CDF changes (requires table property)
+  starting_version: 0
+
+
+# Auto Loader (used if mode=streaming)
+streaming:
+  input_format: json # json | csv | parquet | avro | etc
+  input_path: /mnt/raw/users
+  schema_location: /mnt/_schemas/users
+  checkpoint: /mnt/_chk/users
+  output_table: silver.users # where passing rows land
+  trigger: processingTime=1 minute # use availableNow for catch-up once
+
+
+# Scope of targets to validate: table | schema | catalog
+scope: schema
+catalog: explore
+schema: dq_schema    # explore.dq_schema.sample_data
+include: ["ncr_ride_bookings_dqview"] # glob patterns 
+exclude: ["_dq_*", "tmp*"]
+
+
+
+# Default rules for all targets (override per-table below)
+rules:
+  - type: not_null
+    name: nn_Booking_ID
+    cols: [Avg_VTAT,Avg_CTAT]
+  - type: range
+    name: amt_non_negative
+    col: Avg_VTAT_num
+    min: 10
+  - type: not_null
+    name: dq_Ride_Distance
+    cols: [Ride_Distance_num]
+  - type: not_null
+    name: Payment_Method_check
+    cols: [Payment_Method]
+
+# Per-table overrides (optional)
+tables:
+  hive_metastore.sales.orders:
+    rules:
+      - type: not_null
+        name: nn_order
+        cols: [order_id, customer_id]
+      - type: uniqueness
+        name: uq_order
+        cols: [order_id]
+
+
+# Custom rules module path (optional). If present, will be imported and registered.
+custom_rules_module: custom_rules

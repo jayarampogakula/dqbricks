@@ -1,4 +1,4 @@
--- DQBricks v3 — Databricks SQL Notebook (Ready‑made dashboards)
+-- DQBricks — Databricks SQL Notebook (Ready‑made dashboards)
 --
 -- Use with the auto‑created views from config.yaml:
 --   dq.v_dq_rule_results, dq.v_dq_table_health, dq.v_dq_column_nulls

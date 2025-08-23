@@ -1,0 +1,1 @@
+from . import builtin  # side‑effect: registers built‑ins on import
